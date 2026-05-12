@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treinamento de Conteúdo — Projetti</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #f5ece0;
+    --bg-warm:  #ede0cc;
+    --bg-mid:   #e8d8c0;
+    --surface:  #faf4ec;
+    --gold:     #8a6b3a;
+    --gold-lt:  #b08848;
+    --gold-dk:  #5c4520;
+    --brown:    #3a2e1e;
+    --text:     #2e2416;
+    --muted:    #7a6848;
+    --line:     rgba(138,107,58,.18);
+    --grid:     rgba(138,107,58,.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID CARTOGRÁFICO GLOBAL ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg-warm); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(245,236,224,.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 500; letter-spacing: .32em;
+    color: var(--gold-dk); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .3s;
+  }
+  .nav-links a:hover { color: var(--gold-dk); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 0 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-map {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    display: flex; align-items: center; justify-content: flex-end; overflow: hidden;
+  }
+  .hero-map svg { width: 72%; opacity: .08; fill: var(--gold-dk); }
+  .hero-line {
+    position: absolute; left: 60px; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+    opacity: .25; z-index: 1;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: .64rem; letter-spacing: .38em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 22px; display: flex; align-items: center; gap: 14px;
+  }
+  .hero-eyebrow::before { content:''; display:block; width:36px; height:1px; background:var(--gold); }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-weight: 300; line-height: 1.05; color: var(--brown); margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    max-width: 500px; font-size: .84rem; color: var(--muted); letter-spacing: .04em;
+    border-left: 2px solid var(--gold-lt); padding-left: 18px; margin-bottom: 56px;
+  }
+  .hero-meta { display: flex; gap: 48px; }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-label { font-size: .58rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+  .hero-meta-value { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-dk); font-weight: 500; }
+
+  /* ── SHARED ── */
+  section { padding: 110px 60px; position: relative; z-index: 1; }
+  .section-tag {
+    font-size: .59rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag::after { content:''; width:48px; height:1px; background:var(--gold); opacity:.5; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 4vw, 3.1rem); font-weight: 300; line-height: 1.2;
+    color: var(--brown); margin-bottom: 44px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  hr.divider { border: none; border-top: 1px solid var(--line); position: relative; z-index: 1; }
+
+  /* ── INTRO ── */
+  .intro-section { background: var(--surface); }
+  .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  .intro-text { font-size: .86rem; color: var(--muted); line-height: 1.9; }
+  .intro-text p { margin-bottom: 18px; }
+  .intro-text strong { color: var(--text); font-weight: 400; }
+  .quote-block {
+    border-left: 3px solid var(--gold-lt); padding: 30px 34px;
+    background: var(--bg-warm); position: sticky; top: 96px;
+  }
+  .quote-block p {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    font-style: italic; font-weight: 300; color: var(--brown); line-height: 1.5; margin-bottom: 18px;
+  }
+  .quote-block span { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+  /* ── DIAGNÓSTICO ── */
+  .diagnosis-section { background: var(--bg-warm); }
+  .diagnosis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .diag-card {
+    padding: 36px 32px; background: var(--bg);
+    border-top: 1px solid var(--line); transition: background .3s; position: relative;
+  }
+  .diag-card:hover { background: var(--surface); }
+  .diag-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.2rem;
+    color: rgba(138,107,58,.13); position: absolute; top: 18px; right: 22px;
+    line-height: 1; font-weight: 300;
+  }
+  .diag-card h3 { font-size: .67rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 13px; font-weight: 400; }
+  .diag-card p { font-size: .81rem; color: var(--muted); line-height: 1.85; }
+  .diag-card strong { color: var(--text); font-weight: 400; }
+
+  /* ── PILARES ── */
+  .pillars-section { background: var(--surface); }
+  .pillars-intro { max-width: 580px; font-size: .86rem; color: var(--muted); margin-bottom: 64px; line-height: 1.9; }
+  .pillar {
+    display: grid; grid-template-columns: 72px 1fr 1fr; gap: 44px;
+    align-items: start; padding: 44px 0; border-bottom: 1px solid var(--line);
+  }
+  .pillar:first-of-type { border-top: 1px solid var(--line); }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.8rem;
+    color: var(--gold-lt); opacity: .4; line-height: 1; padding-top: 4px;
+  }
+  .pillar-label { font-size: .58rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .pillar-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.6rem;
+    font-weight: 300; color: var(--brown); margin-bottom: 10px; line-height: 1.2;
+  }
+  .pillar-obj { font-size: .73rem; color: var(--muted); }
+  .pillar-body p { font-size: .81rem; color: var(--muted); margin-bottom: 16px; line-height: 1.85; }
+  .pillar-body strong { color: var(--text); font-weight: 400; }
+  .content-examples { display: flex; flex-direction: column; gap: 7px; }
+  .content-ex {
+    font-size: .73rem; padding: 9px 14px;
+    border: 1px solid var(--line); color: var(--muted);
+    display: flex; align-items: center; gap: 10px;
+    transition: border-color .3s, color .3s, background .3s;
+  }
+  .content-ex:hover { border-color: var(--gold); color: var(--text); background: var(--bg-warm); }
+  .content-ex::before { content:'→'; color:var(--gold); font-size:.68rem; flex-shrink:0; }
+
+  /* ── FORMATOS ── */
+  .formats-section { background: var(--bg-warm); }
+  .formats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .format-card {
+    background: var(--bg); padding: 36px 28px;
+    border-top: 3px solid transparent; transition: border-color .3s, background .3s;
+  }
+  .format-card:hover { background: var(--surface); border-color: var(--gold); }
+  .format-icon { font-size: 1.5rem; margin-bottom: 16px; }
+  .format-card h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
+    color: var(--brown); margin-bottom: 10px; font-weight: 400;
+  }
+  .format-card p { font-size: .77rem; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+  .format-freq { font-size: .59rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); padding-top: 14px; border-top: 1px solid var(--line); }
+
+  /* ── CALENDÁRIO ── */
+  .calendar-section { background: var(--surface); }
+  .calendar-intro { max-width: 560px; font-size: .84rem; color: var(--muted); margin-bottom: 56px; line-height: 1.9; }
+  .week-label {
+    font-size: .59rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--gold); padding: 22px 0 10px; display: flex; align-items: center; gap: 14px;
+  }
+  .week-label::after { content:''; flex:1; height:1px; background:var(--line); }
+  .week-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
+  .post-card {
+    background: var(--bg); padding: 26px 24px 22px;
+    border-left: 2px solid transparent; transition: border-color .3s, background .3s;
+  }
+  .post-card:hover { background: var(--bg-warm); border-color: var(--gold-lt); }
+  .post-pilar { font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
+  .post-format {
+    display: inline-block; font-size: .56rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--line); padding: 3px 8px; margin-bottom: 11px;
+  }
+  .post-headline {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.02rem;
+    color: var(--brown); font-weight: 400; margin-bottom: 10px; line-height: 1.3;
+  }
+  .post-desc { font-size: .73rem; color: var(--muted); line-height: 1.75; }
+
+  /* ── REGRAS ── */
+  .rules-section { background: var(--bg-warm); }
+  .rules-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+  .rules-col h3 {
+    font-size: .62rem; letter-spacing: .28em; text-transform: uppercase;
+    margin-bottom: 26px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .rules-col.never h3 { color: #8a4a3a; }
+  .rules-col.always h3 { color: var(--gold); }
+  .rule-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 13px 0; border-bottom: 1px solid var(--line);
+    font-size: .79rem; color: var(--muted); line-height: 1.6; transition: color .3s;
+  }
+  .rule-item:hover { color: var(--text); }
+  .rule-icon { flex-shrink: 0; font-size: .82rem; margin-top: 2px; }
+
+  /* ── CTA ── */
+  .cta-section {
+    min-height: 58vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; background: var(--bg-mid); position: relative; overflow: hidden;
+  }
+  .cta-ring {
+    position: absolute; border-radius: 50%; border: 1px solid rgba(138,107,58,.12);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .cta-ring-1 { width: 640px; height: 640px; }
+  .cta-ring-2 { width: 420px; height: 420px; }
+  .cta-ring-3 { width: 220px; height: 220px; }
+  .cta-inner { position: relative; z-index: 1; max-width: 680px; padding: 0 24px; }
+  .cta-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--brown);
+    line-height: 1.25; margin-bottom: 24px;
+  }
+  .cta-inner h2 em { font-style: italic; color: var(--gold); }
+  .cta-inner p { font-size: .81rem; color: var(--muted); max-width: 440px; margin: 0 auto 44px; line-height: 1.9; }
+  .cta-line {
+    display: inline-block; font-size: .6rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--gold); padding-bottom: 8px; border-bottom: 1px solid var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 60px; border-top: 1px solid var(--line); background: var(--bg);
+    display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1;
+  }
+  .f-logo { font-family: 'Cormorant Garamond', serif; font-size: .92rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold-dk); font-weight: 500; }
+  .f-note { font-size: .6rem; color: var(--muted); letter-spacing: .1em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(26px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp .8s ease both; }
+  .hero h1      { animation: fadeUp .8s .15s ease both; }
+  .hero-sub     { animation: fadeUp .8s .3s ease both; }
+  .hero-meta    { animation: fadeUp .8s .45s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 22px; }
+    .nav-links { display: none; }
+    section { padding: 72px 22px; }
+    .hero { padding: 0 22px 56px; }
+    .hero-line { left: 22px; }
+    .intro-grid, .rules-cols { grid-template-columns: 1fr; gap: 36px; }
+    .quote-block { position: static; }
+    .diagnosis-grid { grid-template-columns: 1fr; }
+    .pillar { grid-template-columns: 44px 1fr; }
+    .pillar-body { grid-column: 2; }
+    .formats-grid { grid-template-columns: 1fr 1fr; }
+    .week-posts { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 14px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Projetti</div>
+  <div class="nav-links">
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#formatos">Formatos</a>
+    <a href="#calendario">Calendário</a>
+    <a href="#regras">Regras</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-map">
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60,40 L160,30 L200,80 L180,150 L130,180 L80,160 L50,120 Z"/>
+      <path d="M140,200 L200,190 L220,260 L190,340 L150,360 L120,300 L110,240 Z"/>
+      <path d="M380,30 L460,20 L490,60 L470,100 L420,110 L380,90 Z"/>
+      <path d="M380,130 L460,120 L490,200 L470,300 L420,320 L370,280 L360,200 Z"/>
+      <path d="M480,20 L700,10 L750,80 L720,160 L640,200 L560,180 L490,120 Z"/>
+      <path d="M680,260 L760,250 L780,300 L750,340 L700,330 L670,300 Z"/>
+    </svg>
+  </div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Treinamento Estratégico · Case Aceleradora</div>
+    <h1>Produção de <em>Conteúdo</em><br>Premium</h1>
+    <p class="hero-sub">Um guia estratégico para transformar a presença digital da Projetti em autoridade — não em volume.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Marca</span>
+        <span class="hero-meta-value">Projetti Arquitetura</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Público</span>
+        <span class="hero-meta-value">Alto Padrão</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Foco</span>
+        <span class="hero-meta-value">Autoridade & Método</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INTRO -->
+<section id="intro" class="intro-section">
+  <div class="section-tag">Ponto de Partida</div>
+  <h2 class="section-title">O conteúdo não nasce da pergunta<br><em>"O que vamos postar hoje?"</em></h2>
+  <div class="intro-grid">
+    <div class="intro-text">
+      <p>O perfil da Projetti já carrega uma base visual excelente: paleta coesa, tipografia refinada, estética high-end. O desafio não é qualidade estética — é <strong>narrativa contínua</strong>.</p>
+      <p>Hoje o perfil funciona como um portfólio de arquitetura tradicional. Mas o posicionamento da marca é outro: a Projetti concebe, desenvolve e comercializa <strong>empreendimentos autorais</strong> — não projetos sob demanda.</p>
+      <p>O conteúdo precisa refletir isso. Precisa ir além do bonito e comunicar o <strong>método, o critério e a visão estratégica</strong> por trás de cada decisão.</p>
+      <p>A pergunta certa é: <strong>"O que precisamos fazer o cliente perceber sobre a marca?"</strong></p>
+    </div>
+    <div class="quote-block">
+      <p>"Existe um nível de pensamento aqui que é diferente do mercado."</p>
+      <span>— O que o conteúdo deve fazer o cliente sentir</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DIAGNÓSTICO -->
+<section id="diagnostico" class="diagnosis-section">
+  <div class="section-tag">Diagnóstico</div>
+  <h2 class="section-title">O que está travando<br>a <em>produção</em></h2>
+  <div class="diagnosis-grid">
+    <div class="diag-card">
+      <div class="diag-num">01</div>
+      <h3>Busca pelo perfeito</h3>
+      <p>Perfeccionismo trava. O objetivo inicial não é criar conteúdos impecáveis do ponto de vista técnico. É criar <strong>consistência estratégica</strong>. Conteúdo constante e intencional supera conteúdo perfeito e esporádico.</p>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">02</div>
+      <h3>Falta de clareza</h3>
+      <p>A marca possui ativos fortes, mas existe dificuldade em entender <strong>o que interessa ao cliente premium</strong> e como transformar rotina em autoridade percebida.</p>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">03</div>
+      <h3>Conteúdo = câmera</h3>
+      <p>Conteúdo premium não exige aparecer o tempo todo. Pode ser <strong>detalhe, bastidor, decisão, processo</strong>, narração, construção de atmosfera. A Mari não precisa virar influencer.</p>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">04</div>
+      <h3>Falta de estrutura</h3>
+      <p>Quando tudo depende de inspiração, a produção para. A constância nasce de <strong>pilares definidos, formatos claros e banco de ideias</strong> — não do momento perfeito.</p>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">05</div>
+      <h3>Portfólio ≠ Narrativa</h3>
+      <p>O feed atual comunica "arquitetura bonita". Precisa evoluir para: <strong>"existe uma inteligência premium por trás dessa marca"</strong>. A diferença está na intenção, não na estética.</p>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">06</div>
+      <h3>Ausência da liderança</h3>
+      <p>O cliente premium compra muito a liderança, especialmente em tickets altos. A <strong>Mari precisa aparecer como direção, visão e critério</strong> — não apenas como "a arquiteta".</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PILARES -->
+<section id="pilares" class="pillars-section">
+  <div class="section-tag">Estratégia</div>
+  <h2 class="section-title">Os <em>6 Pilares</em><br>de Conteúdo</h2>
+  <p class="pillars-intro">Cada pilar tem uma função estratégica específica. A produção deve circular entre eles ao longo da semana, criando um perfil que é ao mesmo tempo técnico, emocional e autoritário.</p>
+
+  <div class="pillar">
+    <div class="pillar-num">01</div>
+    <div>
+      <div class="pillar-label">Pilar A</div>
+      <div class="pillar-name">Direção & Visão</div>
+      <div class="pillar-obj">Posicionar inteligência estratégica</div>
+    </div>
+    <div class="pillar-body">
+      <p>Conteúdos que mostram <strong>como a Projetti pensa</strong> sobre arquitetura, patrimônio e estilo de vida. Esses posts educam e constroem percepção de profundidade intelectual.</p>
+      <div class="content-examples">
+        <div class="content-ex">"Arquitetura premium não é excesso."</div>
+        <div class="content-ex">"O que realmente valoriza um imóvel no longo prazo."</div>
+        <div class="content-ex">"Como um espaço influencia a sua rotina."</div>
+        <div class="content-ex">"Alto padrão não é ostentação."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-num">02</div>
+    <div>
+      <div class="pillar-label">Pilar B</div>
+      <div class="pillar-name">Processo & Método</div>
+      <div class="pillar-obj">Mostrar organização, critério e segurança</div>
+    </div>
+    <div class="pillar-body">
+      <p>Bastidores com intenção. O <strong>custo que a Projetti absorve por não terceirizar</strong>, os critérios de escolha de materiais, a supervisão direta da liderança. O que o cliente não vê — mas sente.</p>
+      <div class="content-examples">
+        <div class="content-ex">"Por que abrimos mão de terceirizações mais baratas."</div>
+        <div class="content-ex">"O que analisamos antes de aprovar um material."</div>
+        <div class="content-ex">"Como garantimos unidade estética entre os empreendimentos."</div>
+        <div class="content-ex">"A segurança que você não vê — mas sente."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-num">03</div>
+    <div>
+      <div class="pillar-label">Pilar C</div>
+      <div class="pillar-name">Experiência & Estilo de Vida</div>
+      <div class="pillar-obj">Vender sensação de pertencimento</div>
+    </div>
+    <div class="pillar-body">
+      <p>Narrativas que fazem o cliente imaginar: <em>"Eu viveria isso."</em> Foco em <strong>tempo, fluidez, conforto e rotina</strong>. Vídeos com ritmo pausado, takes lentos, trilha que cria presença.</p>
+      <div class="content-examples">
+        <div class="content-ex">"Sair do escritório e em 30 min estar à mesa com a família."</div>
+        <div class="content-ex">"O luxo de viver perto do que importa."</div>
+        <div class="content-ex">"Os detalhes que mudam a experiência de um ambiente."</div>
+        <div class="content-ex">"Arquitetura que organiza a vida."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-num">04</div>
+    <div>
+      <div class="pillar-label">Pilar D</div>
+      <div class="pillar-name">Autoridade & Posicionamento</div>
+      <div class="pillar-obj">Diferenciar do mercado comum</div>
+    </div>
+    <div class="pillar-body">
+      <p>Opiniões, análises e visão crítica. A Mari fala sobre <strong>o que diferencia empreendimentos que envelhecem bem</strong> dos que perdem valor. Posicionamento como referência do setor.</p>
+      <div class="content-examples">
+        <div class="content-ex">"O problema do excesso de estética sem função."</div>
+        <div class="content-ex">"Por que muitos empreendimentos envelhecem rápido."</div>
+        <div class="content-ex">"A diferença entre luxo visual e valor real."</div>
+        <div class="content-ex">"O que define um empreendimento realmente premium."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-num">05</div>
+    <div>
+      <div class="pillar-label">Pilar E</div>
+      <div class="pillar-name">Prova & Materialização</div>
+      <div class="pillar-obj">Transformar percepção em realidade</div>
+    </div>
+    <div class="pillar-body">
+      <p>Obras, acabamentos, render vs execução. Mas <strong>não apenas o bonito</strong>: mostrar intenção, critério, funcionalidade e padrão. A prova concreta de que o método existe.</p>
+      <div class="content-examples">
+        <div class="content-ex">Evolução de obra com narração estratégica</div>
+        <div class="content-ex">Detalhe de acabamento + "por que escolhemos isso"</div>
+        <div class="content-ex">Render × realidade executada</div>
+        <div class="content-ex">Canteiro: organização como prova de padrão</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-num">06</div>
+    <div>
+      <div class="pillar-label">Pilar F</div>
+      <div class="pillar-name">Bastidores Humanos</div>
+      <div class="pillar-obj">Humanizar sem perder sofisticação</div>
+    </div>
+    <div class="pillar-body">
+      <p>Equipe, reuniões, visitas, cultura interna. O bastidor da Projetti deve ter <strong>leveza, organização e presença humana na medida certa</strong> — sem excesso de informalidade.</p>
+      <div class="content-examples">
+        <div class="content-ex">Mari em visita técnica à obra</div>
+        <div class="content-ex">Reunião de alinhamento com equipe de engenharia</div>
+        <div class="content-ex">Análise e seleção de materiais nobres</div>
+        <div class="content-ex">Cultura e valores internos da equipe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FORMATOS -->
+<section id="formatos" class="formats-section">
+  <div class="section-tag">Execução</div>
+  <h2 class="section-title">Formatos <em>Ideais</em></h2>
+  <div class="formats-grid">
+    <div class="format-card">
+      <div class="format-icon">🎬</div>
+      <h3>Reels com Intenção Visual</h3>
+      <p>Takes lentos, câmera estável, textura, luz trabalhada, trilha que sustenta o ritmo. Poucos cortes. Não precisa de produção profissional — precisa de <strong>enquadramento pensado e atmosfera</strong>. O objetivo é desejo, não entretenimento.</p>
+      <div class="format-freq">Prioridade máxima · 2–3×/semana</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">🎙️</div>
+      <h3>Vídeos com Narração</h3>
+      <p>A Mari não precisa aparecer o tempo todo. Imagens do empreendimento + voz over criam profundidade e percepção premium sem exigir presença constante em câmera.</p>
+      <div class="format-freq">Alta prioridade · 1–2×/semana</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">📐</div>
+      <h3>Carrosséis Estratégicos</h3>
+      <p>Capa forte, desenvolvimento e fechamento com clareza. Excelentes para posicionamento, autoridade e educação do lead. Tornam conceitos abstratos tangíveis.</p>
+      <div class="format-freq">Alta prioridade · 1–2×/semana</div>
+    </div>
+    <div class="format-card">
+      <div class="format-icon">📱</div>
+      <h3>Stories Humanos</h3>
+      <p>Não precisam ser perfeitos. Precisam transmitir presença, bastidor e movimento. Obra, reuniões, materiais, detalhes. Continuidade diária da marca.</p>
+      <div class="format-freq">Diariamente · Simples está ótimo</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CALENDÁRIO -->
+<section id="calendario" class="calendar-section">
+  <div class="section-tag">Planejamento</div>
+  <h2 class="section-title">Calendário Editorial<br><em>Mês 1</em></h2>
+  <p class="calendar-intro">3 publicações por semana no feed. Consistência acima de volume. Cada semana cobre os três eixos estratégicos para que o perfil não fique monótono nem desequilibrado.</p>
+
+  <div>
+    <div class="week-label">Semana 1</div>
+    <div class="week-posts">
+      <div class="post-card">
+        <div class="post-pilar">Pilar B · Método</div>
+        <div class="post-format">Carrossel</div>
+        <div class="post-headline">O custo oculto do nosso padrão</div>
+        <div class="post-desc">Visual: detalhe construtivo ou canteiro impecável. O que a Projetti decide não terceirizar para garantir estrutura e segurança absolutas.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar C · Estilo de Vida</div>
+        <div class="post-format">Reels Estético</div>
+        <div class="post-headline">O luxo da funcionalidade</div>
+        <div class="post-desc">Vídeo com transições suaves, texturas e luz trabalhada. Trilha que sustenta o ritmo. Arquitetura que não é só cenário — é estrutura de vida.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar A · Direção</div>
+        <div class="post-format">Foto Única</div>
+        <div class="post-headline">Arquitetura como ativo de longo prazo</div>
+        <div class="post-desc">Fachada imponente do Fourton ou Omatom. Por que um empreendimento com rigor não é luxo — é proteção inteligente de patrimônio.</div>
+      </div>
+    </div>
+
+    <div class="week-label">Semana 2</div>
+    <div class="week-posts">
+      <div class="post-card">
+        <div class="post-pilar">Pilar A · Direção</div>
+        <div class="post-format">Carrossel</div>
+        <div class="post-headline">A tese por trás do empreendimento</div>
+        <div class="post-desc">Renders premium intercalados com frases curtas. Não vendemos metros quadrados — vendemos um produto estratégico alinhado ao momento de vida do cliente.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar B · Método</div>
+        <div class="post-format">Reels Bastidores</div>
+        <div class="post-headline">A segurança que você não vê, mas sente</div>
+        <div class="post-desc">Mari em visita à obra mostrando detalhe técnico ou em reunião com engenheiros. A estética vazia não sustenta. O método e a supervisão direta, sim.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar C · Estilo de Vida</div>
+        <div class="post-format">Foto Única</div>
+        <div class="post-headline">O tempo é o seu maior ativo</div>
+        <div class="post-desc">Ambiente com atmosfera de recolhimento e precisão. É poder sair do escritório e em 30 minutos estar à mesa com a família. Nossos empreendimentos otimizam a sua vida.</div>
+      </div>
+    </div>
+
+    <div class="week-label">Semana 3</div>
+    <div class="week-posts">
+      <div class="post-card">
+        <div class="post-pilar">Pilar D · Autoridade</div>
+        <div class="post-format">Carrossel</div>
+        <div class="post-headline">Ostentação vs. Status Silencioso</div>
+        <div class="post-desc">Design limpo, tipografia com peso e respiração. A diferença entre excesso e escolha inteligente. O verdadeiro alto padrão é discreto, seguro e inegociável.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar A · Direção</div>
+        <div class="post-format">Vídeo / Reels</div>
+        <div class="post-headline">Por que não fazemos projetos sob demanda?</div>
+        <div class="post-desc">Mari falando diretamente para câmera. A lógica inversa da Projetti: criamos ativos autorais e conectamos o empreendimento certo ao cliente certo.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar B · Método</div>
+        <div class="post-format">Foto Única</div>
+        <div class="post-headline">Critério na escolha de parcerias</div>
+        <div class="post-desc">Detalhe de material nobre ou equipe técnica. Como o nível de exigência da Projetti filtra quem trabalha conosco. Um projeto premium exige fornecedores de elite.</div>
+      </div>
+    </div>
+
+    <div class="week-label">Semana 4</div>
+    <div class="week-posts">
+      <div class="post-card">
+        <div class="post-pilar">Pilar C · Estilo de Vida</div>
+        <div class="post-format">Carrossel</div>
+        <div class="post-headline">O filtro do alto padrão</div>
+        <div class="post-desc">Imagens que transmitam seletividade. A Projetti não atende a qualquer perfil. Existe alinhamento de valores e visão de futuro antes de qualquer negócio.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar B · Método</div>
+        <div class="post-format">Reels</div>
+        <div class="post-headline">Do primeiro contato à entrega das chaves</div>
+        <div class="post-desc">Teaser: reunião no escritório, projeto em tela, aperto de mãos. Não existe improviso. Nosso processo é 100% estruturado para garantir controle e previsibilidade.</div>
+      </div>
+      <div class="post-card">
+        <div class="post-pilar">Pilar A · Direção</div>
+        <div class="post-format">Foto Única</div>
+        <div class="post-headline">O futuro do seu patrimônio</div>
+        <div class="post-desc">Fim de tarde em varanda do empreendimento. O mercado muda, mas a segurança de um ativo sólido com método permanece inabalável. CTA: agende uma reunião presencial.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REGRAS -->
+<section id="regras" class="rules-section">
+  <div class="section-tag">Bússola da Marca</div>
+  <h2 class="section-title">O que <em>nunca</em> fazer —<br>e o que sempre fazer</h2>
+  <div class="rules-cols">
+    <div class="rules-col never">
+      <h3>❌ Nunca</h3>
+      <div class="rule-item"><span class="rule-icon">✗</span>Usar urgência apelativa: "últimas vagas", "corre", "desconto"</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Parecer popular, acessível ou generalista</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Focar apenas em estética vazia, sem narrativa ou intenção</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Usar linguagem excessivamente informal</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Seguir trends forçadas ou humor fora de contexto</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Excesso de edição ou "instagramável" sem propósito</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Posts promocionais em excesso ou CTA agressiva</div>
+      <div class="rule-item"><span class="rule-icon">✗</span>Comunicar acessibilidade — comunicar seletividade</div>
+    </div>
+    <div class="rules-col always">
+      <h3>✓ Sempre</h3>
+      <div class="rule-item"><span class="rule-icon">✓</span>Elevar percepção de valor a cada publicação</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Demonstrar método, processo e tomada de decisão consciente</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Reforçar exclusividade e evidenciar beleza nos detalhes</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Vender pelo critério, estratégia, visão e posicionamento</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>CTA com tom consultivo: "Para conhecer a tese do Omatom, agende uma reunião."</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Mostrar a Mari como direção, visão e inteligência da marca</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Humanizar com critério: bastidor com presença, não informalidade</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Consistência acima de perfeição — estrutura acima de inspiração</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-ring cta-ring-1"></div>
+  <div class="cta-ring cta-ring-2"></div>
+  <div class="cta-ring cta-ring-3"></div>
+  <div class="cta-inner">
+    <h2>A Projetti não vende apenas arquitetura.<br><em>Ela constrói ativos imobiliários com<br>direção, critério e visão de longo prazo.</em></h2>
+    <p>Esse guia é o ponto de partida. A execução consistente, semana a semana, é o que vai transformar o perfil de portfólio em autoridade real no mercado de alto padrão.</p>
+    <span class="cta-line">Projetti Arquitetura · Conteúdo com Intenção</span>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Projetti</div>
+  <div class="f-note">Treinamento Estratégico de Conteúdo · Case Aceleradora · Material Interno</div>
+</footer>
+
+</body>
+</html>

@@ -275,7 +275,128 @@
   .f-logo { font-family: 'Cormorant Garamond', serif; font-size: .92rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold-dk); font-weight: 500; }
   .f-note { font-size: .6rem; color: var(--muted); letter-spacing: .1em; }
 
-  /* ── ANIMATIONS ── */
+  /* ── ROTEIROS ── */
+  .roteiros-section { background: var(--bg); }
+  .roteiros-intro { max-width: 580px; font-size: .86rem; color: var(--muted); margin-bottom: 56px; line-height: 1.9; }
+
+  /* tabs */
+  .roteiros-tabs { display: flex; gap: 2px; margin-bottom: 2px; flex-wrap: wrap; }
+  .rtab {
+    font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+    padding: 10px 20px; background: var(--bg-warm); color: var(--muted);
+    border: none; cursor: pointer; transition: background .2s, color .2s;
+    font-family: 'Jost', sans-serif; font-weight: 300;
+  }
+  .rtab.active { background: var(--gold); color: #fff; }
+  .rtab:hover:not(.active) { background: var(--bg-mid); color: var(--text); }
+
+  .roteiro-panel { display: none; }
+  .roteiro-panel.active { display: block; }
+
+  /* card do roteiro */
+  .roteiro-card {
+    background: var(--surface); border-top: 1px solid var(--line);
+    margin-bottom: 2px;
+  }
+  .roteiro-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 28px 32px; cursor: pointer; gap: 24px;
+  }
+  .roteiro-header:hover .roteiro-title { color: var(--gold); }
+  .roteiro-badge {
+    font-size: .56rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); background: var(--bg-warm); padding: 4px 10px;
+    white-space: nowrap; margin-top: 4px; flex-shrink: 0;
+  }
+  .roteiro-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
+    color: var(--brown); font-weight: 400; line-height: 1.3;
+    transition: color .3s;
+  }
+  .roteiro-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 6px; }
+  .roteiro-meta span { font-size: .68rem; color: var(--muted); letter-spacing: .04em; }
+  .roteiro-meta strong { color: var(--gold-dk); font-weight: 400; }
+  .roteiro-toggle {
+    font-size: .7rem; color: var(--gold); flex-shrink: 0; margin-top: 4px;
+    transition: transform .3s;
+  }
+  .roteiro-card.open .roteiro-toggle { transform: rotate(180deg); }
+
+  .roteiro-body {
+    display: none; padding: 0 32px 32px;
+  }
+  .roteiro-card.open .roteiro-body { display: block; }
+
+  /* cenas */
+  .cena {
+    display: grid; grid-template-columns: 100px 1fr 1fr; gap: 24px;
+    padding: 20px 0; border-bottom: 1px solid var(--line); align-items: start;
+  }
+  .cena:last-child { border-bottom: none; }
+  .cena-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;
+    color: var(--gold-lt); opacity: .4; line-height: 1; font-weight: 300;
+  }
+  .cena-label { font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .cena-img { font-size: .8rem; color: var(--muted); line-height: 1.7; }
+  .cena-img ul { list-style: none; padding: 0; }
+  .cena-img ul li::before { content: '— '; color: var(--gold); }
+  .cena-text {}
+  .cena-fala {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1rem; color: var(--brown); line-height: 1.6; margin-bottom: 10px;
+  }
+  .cena-tela {
+    font-size: .74rem; color: var(--muted); border-left: 2px solid var(--gold-lt);
+    padding-left: 12px; margin-bottom: 8px; line-height: 1.6;
+  }
+  .cena-cta {
+    display: inline-block; font-size: .64rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold);
+    padding: 5px 14px; margin-top: 8px;
+  }
+
+  /* direção de captação */
+  .captacao-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
+  .captacao-card { background: var(--bg-warm); padding: 28px 24px; }
+  .captacao-card h4 { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 400; }
+  .captacao-card ul { list-style: none; padding: 0; }
+  .captacao-card ul li { font-size: .78rem; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--line); line-height: 1.5; display: flex; gap: 8px; }
+  .captacao-card ul li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+
+  /* frases fortes */
+  .frases-grid { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+  .frase-item {
+    background: var(--bg-warm); padding: 18px 24px;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+    font-style: italic; color: var(--brown); display: flex; align-items: center; gap: 16px;
+    transition: background .3s;
+  }
+  .frase-item:hover { background: var(--bg-mid); }
+  .frase-item::before { content: '"'; color: var(--gold); font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+
+  /* estratégia Danilo */
+  .danilo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 2px; }
+  .danilo-col { background: var(--bg-warm); padding: 28px 28px; }
+  .danilo-col h4 { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 16px; font-weight: 400; }
+  .danilo-col.fazer h4 { color: var(--gold); }
+  .danilo-col.nfazer h4 { color: #8a4a3a; }
+  .danilo-col ul { list-style: none; padding: 0; }
+  .danilo-col ul li { font-size: .79rem; color: var(--muted); padding: 8px 0; border-bottom: 1px solid var(--line); display: flex; gap: 10px; }
+  .danilo-col ul li::before { flex-shrink: 0; }
+  .danilo-col.fazer ul li::before { content: '✓'; color: var(--gold); }
+  .danilo-col.nfazer ul li::before { content: '✗'; color: #8a4a3a; }
+
+  @media (max-width: 900px) {
+    .cena { grid-template-columns: 44px 1fr; }
+    .cena-text { grid-column: 2; }
+    .captacao-grid { grid-template-columns: 1fr; }
+    .danilo-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── FIM ROTEIROS ── */
+
+
   @keyframes fadeUp {
     from { opacity:0; transform:translateY(26px); }
     to   { opacity:1; transform:translateY(0); }
@@ -313,6 +434,7 @@
     <a href="#formatos">Formatos</a>
     <a href="#calendario">Calendário</a>
     <a href="#regras">Regras</a>
+    <a href="#roteiros">Roteiros</a>
   </div>
 </nav>
 
@@ -390,7 +512,7 @@
     <div class="diag-card">
       <div class="diag-num">03</div>
       <h3>Conteúdo = câmera</h3>
-      <p>Conteúdo premium não exige aparecer o tempo todo. Pode ser <strong>detalhe, bastidor, decisão, processo</strong>, narração, construção de atmosfera. A Mari não precisa virar influencer.</p>
+      <p>Conteúdo premium não exige aparecer o tempo todo. Pode ser <strong>detalhe, bastidor, decisão, processo</strong>, narração, construção de atmosfera. O Danilo não precisa virar influencer.</p>
     </div>
     <div class="diag-card">
       <div class="diag-num">04</div>
@@ -405,7 +527,7 @@
     <div class="diag-card">
       <div class="diag-num">06</div>
       <h3>Ausência da liderança</h3>
-      <p>O cliente premium compra muito a liderança, especialmente em tickets altos. A <strong>Mari precisa aparecer como direção, visão e critério</strong> — não apenas como "a arquiteta".</p>
+      <p>O cliente premium compra muito a liderança, especialmente em tickets altos. O <strong>Danilo precisa aparecer como direção, visão e critério</strong> — não apenas como "a arquiteta".</p>
     </div>
   </div>
 </section>
@@ -480,7 +602,7 @@
       <div class="pillar-obj">Diferenciar do mercado comum</div>
     </div>
     <div class="pillar-body">
-      <p>Opiniões, análises e visão crítica. A Mari fala sobre <strong>o que diferencia empreendimentos que envelhecem bem</strong> dos que perdem valor. Posicionamento como referência do setor.</p>
+      <p>Opiniões, análises e visão crítica. O Danilo fala sobre <strong>o que diferencia empreendimentos que envelhecem bem</strong> dos que perdem valor. Posicionamento como referência do setor.</p>
       <div class="content-examples">
         <div class="content-ex">"O problema do excesso de estética sem função."</div>
         <div class="content-ex">"Por que muitos empreendimentos envelhecem rápido."</div>
@@ -518,7 +640,7 @@
     <div class="pillar-body">
       <p>Equipe, reuniões, visitas, cultura interna. O bastidor da Projetti deve ter <strong>leveza, organização e presença humana na medida certa</strong> — sem excesso de informalidade.</p>
       <div class="content-examples">
-        <div class="content-ex">Mari em visita técnica à obra</div>
+        <div class="content-ex">Danilo em visita técnica à obra</div>
         <div class="content-ex">Reunião de alinhamento com equipe de engenharia</div>
         <div class="content-ex">Análise e seleção de materiais nobres</div>
         <div class="content-ex">Cultura e valores internos da equipe</div>
@@ -543,7 +665,7 @@
     <div class="format-card">
       <div class="format-icon">🎙️</div>
       <h3>Vídeos com Narração</h3>
-      <p>A Mari não precisa aparecer o tempo todo. Imagens do empreendimento + voz over criam profundidade e percepção premium sem exigir presença constante em câmera.</p>
+      <p>O Danilo não precisa aparecer o tempo todo. Imagens do empreendimento + voz over criam profundidade e percepção premium sem exigir presença constante em câmera.</p>
       <div class="format-freq">Alta prioridade · 1–2×/semana</div>
     </div>
     <div class="format-card">
@@ -604,7 +726,7 @@
         <div class="post-pilar">Pilar B · Método</div>
         <div class="post-format">Reels Bastidores</div>
         <div class="post-headline">A segurança que você não vê, mas sente</div>
-        <div class="post-desc">Mari em visita à obra mostrando detalhe técnico ou em reunião com engenheiros. A estética vazia não sustenta. O método e a supervisão direta, sim.</div>
+        <div class="post-desc">Danilo em visita à obra mostrando detalhe técnico ou em reunião com engenheiros. A estética vazia não sustenta. O método e a supervisão direta, sim.</div>
       </div>
       <div class="post-card">
         <div class="post-pilar">Pilar C · Estilo de Vida</div>
@@ -626,7 +748,7 @@
         <div class="post-pilar">Pilar A · Direção</div>
         <div class="post-format">Vídeo / Reels</div>
         <div class="post-headline">Por que não fazemos projetos sob demanda?</div>
-        <div class="post-desc">Mari falando diretamente para câmera. A lógica inversa da Projetti: criamos ativos autorais e conectamos o empreendimento certo ao cliente certo.</div>
+        <div class="post-desc">Danilo falando diretamente para câmera. A lógica inversa da Projetti: criamos ativos autorais e conectamos o empreendimento certo ao cliente certo.</div>
       </div>
       <div class="post-card">
         <div class="post-pilar">Pilar B · Método</div>
@@ -685,7 +807,7 @@
       <div class="rule-item"><span class="rule-icon">✓</span>Reforçar exclusividade e evidenciar beleza nos detalhes</div>
       <div class="rule-item"><span class="rule-icon">✓</span>Vender pelo critério, estratégia, visão e posicionamento</div>
       <div class="rule-item"><span class="rule-icon">✓</span>CTA com tom consultivo: "Para conhecer a tese do Omatom, agende uma reunião."</div>
-      <div class="rule-item"><span class="rule-icon">✓</span>Mostrar a Mari como direção, visão e inteligência da marca</div>
+      <div class="rule-item"><span class="rule-icon">✓</span>Mostrar o Danilo como direção, visão e inteligência da marca</div>
       <div class="rule-item"><span class="rule-icon">✓</span>Humanizar com critério: bastidor com presença, não informalidade</div>
       <div class="rule-item"><span class="rule-icon">✓</span>Consistência acima de perfeição — estrutura acima de inspiração</div>
     </div>
@@ -694,7 +816,550 @@
 
 <hr class="divider">
 
-<!-- CTA FINAL -->
+<!-- ROTEIROS -->
+<section id="roteiros" class="roteiros-section">
+  <div class="section-tag">Gravações</div>
+  <h2 class="section-title">Roteiros <em>Fourton</em></h2>
+  <p class="roteiros-intro">Material de apoio para as gravações do Fourton. Os roteiros estão divididos em dois grupos: vídeos com narração em off (sem presença em câmera) e vídeos com o Danilo como porta-voz. Abaixo também estão a direção de captação e as frases aprovadas para uso.</p>
+
+  <!-- TABS -->
+  <div class="roteiros-tabs">
+    <button class="rtab active" onclick="showTab('narrados')">Narração em Off</button>
+    <button class="rtab" onclick="showTab('danilo')">Com Danilo</button>
+    <button class="rtab" onclick="showTab('captacao')">Direção de Captação</button>
+    <button class="rtab" onclick="showTab('frases')">Frases de Apoio</button>
+    <button class="rtab" onclick="showTab('estrategia')">Estratégia com Danilo</button>
+  </div>
+
+  <!-- NARRADOS -->
+  <div class="roteiro-panel active" id="tab-narrados">
+
+    <!-- R01 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 01 — "O Fourton já revela sua dimensão"</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Mostrar avanço real da obra + percepção de solidez</span>
+            <span><strong>Duração:</strong> 45–60s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Impacto</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div>
+            <div class="cena-label">Abertura</div>
+            <div class="cena-img">Drone mostrando toda a estrutura já avançada.</div>
+          </div>
+          <div class="cena-text">
+            <div class="cena-tela">"O Fourton já evidencia sua dimensão."</div>
+            <div class="cena-fala">"O que antes era projeto, hoje já ocupa espaço na paisagem da cidade."</div>
+          </div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div>
+            <div class="cena-label">Estrutura</div>
+            <div class="cena-img"><ul><li>Pavimentos</li><li>Circulação interna</li><li>Fachada e corredores</li><li>Detalhes estruturais</li></ul></div>
+          </div>
+          <div class="cena-text">
+            <div class="cena-fala">"Com 72 unidades distribuídas em 5 pavimentos, o Fourton avança em ritmo acelerado."</div>
+          </div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div>
+            <div class="cena-label">Potencial Comercial</div>
+            <div class="cena-img">Áreas das lojas e salas.</div>
+          </div>
+          <div class="cena-text">
+            <div class="cena-fala">"São 14 lojas e 58 salas comerciais em diferentes formatos e tamanhos."</div>
+            <div class="cena-tela">14 lojas · 58 salas · 5 pavimentos</div>
+          </div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div>
+            <div class="cena-label">Detalhes da Obra</div>
+            <div class="cena-img"><ul><li>Acabamentos</li><li>Equipe</li><li>Instalações</li></ul></div>
+          </div>
+          <div class="cena-text">
+            <div class="cena-fala">"Cada etapa executada reforça o padrão e a solidez do empreendimento."</div>
+          </div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div>
+            <div class="cena-label">Fechamento</div>
+            <div class="cena-img">Drone afastando da obra.</div>
+          </div>
+          <div class="cena-text">
+            <div class="cena-fala">"O Fourton segue evoluindo. E cada atualização mostra o tamanho desse projeto."</div>
+            <span class="cena-cta">Acompanhe a evolução da obra.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R02 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 02 — Atualização mensal da obra</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Conteúdo recorrente de atualização</span>
+            <span><strong>Duração:</strong> 30–45s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Recorrente</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Entrada</div><div class="cena-img">Drone entrando na obra.</div></div>
+          <div class="cena-text"><div class="cena-tela">"Atualização da obra: Fourton"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Estágio Atual</div><div class="cena-img">Mostrar evolução visível na estrutura.</div></div>
+          <div class="cena-text"><div class="cena-fala">"A obra do Fourton segue avançando com evolução visível em toda a estrutura."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Áreas Internas</div><div class="cena-img">Pavimentos e circulação.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Os cinco pavimentos já demonstram a proporção e a funcionalidade do empreendimento."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Unidades</div><div class="cena-img">Lojas e salas.</div></div>
+          <div class="cena-text"><div class="cena-fala">"As unidades comerciais começam a revelar diferentes possibilidades de operação e ocupação."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone final.</div></div>
+          <div class="cena-text">
+            <div class="cena-fala">"Mais uma etapa concluída. Seguimos avançando."</div>
+            <span class="cena-cta">Acompanhe as próximas atualizações.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R03 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 03 — "A evolução do Fourton"</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Mostrar percepção de progresso acelerado</span>
+            <span><strong>Duração:</strong> 20–30s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Comparativo</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Antes × Atual</div><div class="cena-img">Comparativo visual lado a lado.</div></div>
+          <div class="cena-text"><div class="cena-tela">"A evolução do Fourton nos últimos meses."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Drone</div><div class="cena-img">Drone lateral.</div></div>
+          <div class="cena-text"><div class="cena-tela">"Estrutura avançada"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Áreas Internas</div><div class="cena-img">Ambientes internos.</div></div>
+          <div class="cena-text"><div class="cena-tela">"5 pavimentos"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Unidades</div><div class="cena-img">Lojas e salas.</div></div>
+          <div class="cena-text"><div class="cena-tela">"72 unidades comerciais"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone aberto.</div></div>
+          <div class="cena-text">
+            <div class="cena-tela">"Fourton"</div>
+            <span class="cena-cta">Ainda dá tempo de garantir o seu.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R04 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 04 — "Cada atualização mostra o potencial do projeto"</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Valorizar sem parecer venda direta</span>
+            <span><strong>Duração:</strong> 45s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Autoridade</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Abertura</div><div class="cena-img">Drone em horário de pôr do sol.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Grandes empreendimentos são percebidos antes mesmo da entrega."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Estrutura</div><div class="cena-img">Movimento pelos corredores e estrutura.</div></div>
+          <div class="cena-text"><div class="cena-fala">"E a evolução do Fourton já mostra a dimensão desse projeto."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Técnico</div><div class="cena-img">Detalhes técnicos e construtivos.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Um empreendimento planejado para reunir operação comercial, circulação inteligente e presença arquitetônica."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Espaços</div><div class="cena-img">Diferentes áreas e configurações.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Salas e lojas com diferentes configurações para atender múltiplos perfis de negócio."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone final completo.</div></div>
+          <div class="cena-text">
+            <div class="cena-fala">"O Fourton continua avançando. E cada etapa aproxima o projeto da sua forma final."</div>
+            <span class="cena-cta">Quer saber mais? Converse com a nossa equipe.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R05 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 05 — Reels rápido para tráfego</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Alcance + percepção visual forte</span>
+            <span><strong>Duração:</strong> 15s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Tráfego · 15s</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Impacto</div><div class="cena-img">Drone impactante de abertura.</div></div>
+          <div class="cena-text"><div class="cena-tela">"O Fourton já está assim."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Altura</div><div class="cena-img">Subida vertical mostrando altura.</div></div>
+          <div class="cena-text"><div class="cena-tela">"5 pavimentos"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Internas</div><div class="cena-img">Áreas internas.</div></div>
+          <div class="cena-text"><div class="cena-tela">"72 unidades comerciais"</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Equipe</div><div class="cena-img">Detalhes + equipe em ação.</div></div>
+          <div class="cena-text"><div class="cena-tela">"Evolução acelerada da obra."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Plano aberto final.</div></div>
+          <div class="cena-text">
+            <div class="cena-tela">"Fourton"</div>
+            <span class="cena-cta">Acompanhe as atualizações.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-narrados -->
+
+  <!-- COM DANILO -->
+  <div class="roteiro-panel" id="tab-danilo">
+
+    <!-- R06 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 06 — Danilo apresenta a evolução da obra</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Humanizar + gerar autoridade técnica</span>
+            <span><strong>Duração:</strong> 45–60s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Autoridade</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Abertura</div><div class="cena-img">Danilo caminhando na obra.</div></div>
+          <div class="cena-text">
+            <div class="cena-tela">"Atualização da obra: Fourton"</div>
+            <div class="cena-fala">"A obra do Fourton segue avançando muito bem, e hoje vamos mostrar como está a evolução do empreendimento."</div>
+          </div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Estrutura</div><div class="cena-img">Drone + cortes da estrutura.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Hoje já conseguimos visualizar claramente os cinco pavimentos e a dimensão que o projeto terá quando finalizado."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Unidades</div><div class="cena-img">Corredores, salas e lojas.</div></div>
+          <div class="cena-text"><div class="cena-fala">"O empreendimento contará com 72 unidades comerciais, entre lojas e salas de diferentes formatos."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Bastidores</div><div class="cena-img">Danilo analisando planta ou conversando com equipe.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Seguimos avançando em todas as etapas com foco em execução, qualidade e cumprimento do cronograma."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">05</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone afastando.</div></div>
+          <div class="cena-text">
+            <div class="cena-fala">"E em breve teremos novas atualizações da obra do Fourton."</div>
+            <span class="cena-cta">Acompanhe a evolução.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R07 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 07 — "O que já mudou na obra"</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Formato mais natural e menos institucional</span>
+            <span><strong>Duração:</strong> 30–45s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Natural</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Abertura</div><div class="cena-img">Danilo parado em ponto alto da obra.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Quem acompanha a obra desde o começo consegue perceber o quanto o Fourton evoluiu."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Cortes</div><div class="cena-img">Cortes da estrutura atual.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Hoje a estrutura já revela muito da dimensão real do empreendimento."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Espaços</div><div class="cena-img">Salas e circulação.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Já conseguimos visualizar bem os espaços comerciais, circulação e distribuição das unidades."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone final.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Seguimos avançando para as próximas etapas da obra."</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R08 -->
+    <div class="roteiro-card" onclick="toggleCard(this)">
+      <div class="roteiro-header">
+        <div>
+          <div class="roteiro-title">Roteiro 08 — Danilo em formato técnico</div>
+          <div class="roteiro-meta">
+            <span><strong>Objetivo:</strong> Passar confiança para investidores e empresas</span>
+            <span><strong>Duração:</strong> 45s</span>
+          </div>
+        </div>
+        <span class="roteiro-badge">Investidor</span>
+        <span class="roteiro-toggle">▼</span>
+      </div>
+      <div class="roteiro-body">
+        <div class="cena">
+          <div class="cena-num">01</div>
+          <div><div class="cena-label">Abertura</div><div class="cena-img">Danilo olhando a obra.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Uma obra desse porte exige planejamento, execução e acompanhamento constante."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">02</div>
+          <div><div class="cena-label">Técnico</div><div class="cena-img">Detalhes técnicos e construtivos.</div></div>
+          <div class="cena-text"><div class="cena-fala">"O Fourton foi pensado para unir funcionalidade comercial, circulação eficiente e presença arquitetônica."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">03</div>
+          <div><div class="cena-label">Equipe</div><div class="cena-img">Equipe trabalhando na obra.</div></div>
+          <div class="cena-text"><div class="cena-fala">"Cada etapa executada hoje impacta diretamente a qualidade final do empreendimento."</div></div>
+        </div>
+        <div class="cena">
+          <div class="cena-num">04</div>
+          <div><div class="cena-label">Fechamento</div><div class="cena-img">Drone aberto.</div></div>
+          <div class="cena-text">
+            <div class="cena-fala">"E a evolução da obra já demonstra a proporção desse projeto."</div>
+            <span class="cena-cta">Acompanhe as atualizações.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-danilo -->
+
+  <!-- CAPTAÇÃO -->
+  <div class="roteiro-panel" id="tab-captacao">
+    <div class="captacao-grid">
+      <div class="captacao-card">
+        <h4>Drone</h4>
+        <ul>
+          <li>Abertura frontal da fachada</li>
+          <li>Lateral completa do empreendimento</li>
+          <li>Subida vertical mostrando altura</li>
+          <li>Afastamento revelando entorno</li>
+        </ul>
+      </div>
+      <div class="captacao-card">
+        <h4>Interno</h4>
+        <ul>
+          <li>Walking pelos corredores</li>
+          <li>Portas e entradas das salas</li>
+          <li>Escadas e área de elevadores</li>
+          <li>Amplitude dos ambientes</li>
+        </ul>
+      </div>
+      <div class="captacao-card">
+        <h4>Close</h4>
+        <ul>
+          <li>Textura do concreto</li>
+          <li>Acabamentos em execução</li>
+          <li>Detalhes técnicos e instalações</li>
+          <li>Equipe e ferramentas em operação</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 32px;">
+      <div class="section-tag" style="margin-bottom: 16px;">Prioridade de captação</div>
+      <div class="captacao-grid">
+        <div class="captacao-card" style="grid-column: span 3;">
+          <h4>O que precisa ficar claro nas imagens</h4>
+          <ul>
+            <li>Dimensão real do empreendimento</li>
+            <li>Profundidade dos corredores internos</li>
+            <li>Quantidade de unidades e pavimentos</li>
+            <li>Avanço estrutural concreto e visível</li>
+            <li>Sensação de projeto consolidado e em ritmo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 32px;">
+      <div class="section-tag" style="margin-bottom: 16px;">Edição</div>
+      <div class="captacao-grid">
+        <div class="captacao-card">
+          <h4>Ritmo</h4>
+          <ul><li>Moderno e corporativo</li><li>Controlado, sem aceleração</li><li>Pausas que valorizam os planos</li></ul>
+        </div>
+        <div class="captacao-card">
+          <h4>Trilha</h4>
+          <ul><li>Corporativa com presença</li><li>Crescente ao longo do vídeo</li><li>Sem exagero emocional</li></ul>
+        </div>
+        <div class="captacao-card">
+          <h4>Motion</h4>
+          <ul><li>Textos minimalistas</li><li>Transições suaves</li><li>Velocidade controlada</li></ul>
+        </div>
+      </div>
+    </div>
+  </div><!-- /tab-captacao -->
+
+  <!-- FRASES -->
+  <div class="roteiro-panel" id="tab-frases">
+    <div class="frases-grid">
+      <div class="frase-item">A evolução da obra já revela a dimensão do Fourton.</div>
+      <div class="frase-item">Cada atualização aproxima o projeto da sua forma final.</div>
+      <div class="frase-item">Um empreendimento que já começa a marcar presença.</div>
+      <div class="frase-item">Estrutura avançando. Potencial se consolidando.</div>
+      <div class="frase-item">O Fourton segue evoluindo em ritmo acelerado.</div>
+    </div>
+  </div><!-- /tab-frases -->
+
+  <!-- ESTRATÉGIA DANILO -->
+  <div class="roteiro-panel" id="tab-estrategia">
+    <div class="danilo-grid">
+      <div class="danilo-col fazer">
+        <h4>✓ Fazer com Danilo</h4>
+        <ul>
+          <li>Danilo andando pela obra enquanto fala</li>
+          <li>Falas curtas e diretas — máximo 2 frases por cena</li>
+          <li>Linguagem clara, sem jargão técnico</li>
+          <li>Cortes dinâmicos com drone apoiando a narrativa</li>
+          <li>Mostrar visualmente o que ele está comentando</li>
+        </ul>
+      </div>
+      <div class="danilo-col nfazer">
+        <h4>✗ Evitar com Danilo</h4>
+        <ul>
+          <li>Entrevista parada sem movimento de câmera</li>
+          <li>Falas longas ou monólogos extensos</li>
+          <li>Excesso de linguagem técnica de engenharia</li>
+          <li>Cenas estáticas sem corte ou apoio visual</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 2px;">
+      <div class="captacao-grid">
+        <div class="captacao-card">
+          <h4>Frequência</h4>
+          <ul>
+            <li>Vídeos com Danilo: 1–2 por mês</li>
+            <li>Vídeos sem fala: 2–4 por mês</li>
+          </ul>
+        </div>
+        <div class="captacao-card">
+          <h4>Fórmula que funciona</h4>
+          <ul>
+            <li>Fala humana + imagens fortes + evolução visível</li>
+            <li>Exemplo: "Hoje já conseguimos visualizar claramente a dimensão do Fourton." — enquanto drone mostra altura e cortes internos.</li>
+          </ul>
+        </div>
+        <div class="captacao-card">
+          <h4>Gravar sempre</h4>
+          <ul>
+            <li>Danilo falando para câmera</li>
+            <li>Danilo olhando a obra</li>
+            <li>Danilo caminhando</li>
+            <li>Danilo conversando com equipe</li>
+            <li>Danilo apontando detalhes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div><!-- /tab-estrategia -->
+
+</section>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.roteiro-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+</script>
+
+
 <section class="cta-section">
   <div class="cta-ring cta-ring-1"></div>
   <div class="cta-ring cta-ring-2"></div>
